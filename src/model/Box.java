@@ -4,13 +4,30 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-public class Box {
+public class Box extends Thread{
 	
 	private Canvas canvas;
 	private GraphicsContext gc;
 	
 	private int x;
 	private int y;
+	private boolean isAlive = true;
+	
+	@Override
+	public void run() {
+		while(isAlive) {
+			int randX = (int)(7*Math.random()) - 3;
+			int randY = (int)(7*Math.random()) - 3;
+			x+=randX;
+			y+=randY;
+			try {
+				Thread.sleep(50);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
 	
 	public Box(Canvas canvas, int x, int y) {
 		this.canvas = canvas;
@@ -40,6 +57,9 @@ public class Box {
 		this.y = y;
 	}
 	
+	public void setAlive(boolean isAlive) {
+		this.isAlive = isAlive;
+	}
 	
 	
 }

@@ -25,7 +25,10 @@ public class ScreenA extends BaseScreen {
 		bullets = new ArrayList<Bullet>();
 		boxes = new ArrayList<>();
 
-		boxes.add(new Box(canvas, 500, 200));
+		
+		Box enemigo1 = new Box(canvas, 500, 200);
+		enemigo1.start();
+		boxes.add(enemigo1);
 	}
 
 	@Override
@@ -62,8 +65,10 @@ public class ScreenA extends BaseScreen {
 				);
 				
 				if(D <= 10) {
-					boxes.remove(i);
+					Box deletedBox = boxes.remove(i);
+					deletedBox.setAlive(false);
 					bullets.remove(j);
+					
 					return;
 				}
 				
@@ -90,6 +95,7 @@ public class ScreenA extends BaseScreen {
 		} else if (e.getCode().equals(KeyCode.D)) {
 			avatar.moveXBy(2);
 		} else if (e.getCode().equals(KeyCode.SPACE)) {
+			avatar.setState(1);
 			bullets.add(new Bullet(canvas, avatar.getX(), avatar.getY()));
 		}
 
